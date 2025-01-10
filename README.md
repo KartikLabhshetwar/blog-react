@@ -8,7 +8,7 @@ A modern, responsive blog website built with React, TypeScript, and Tailwind CSS
 - 📱 Fully responsive layout
 - 🚀 Built with React + TypeScript + Vite
 - 🎯 Tailwind CSS for styling
-- 🔄 Dynamic content loading
+- 🔄 Dynamic content loading from DummyJSON
 - 🌊 Custom wave pattern backgrounds
 - ⚡ Fast and optimized performance
 - 🔍 SEO-friendly structure
@@ -19,7 +19,7 @@ A modern, responsive blog website built with React, TypeScript, and Tailwind CSS
 - [TypeScript](https://www.typescriptlang.org/) - JavaScript with syntax for types
 - [Vite](https://vitejs.dev/) - Next Generation Frontend Tooling
 - [Tailwind CSS](https://tailwindcss.com/) - A utility-first CSS framework
-- [News API](https://newsapi.org/) - Real-world news and blog content
+- [DummyJSON](https://dummyjson.com/) - Fake REST API for testing and prototyping
 
 ## Getting Started
 
@@ -119,7 +119,7 @@ The project uses Tailwind CSS for styling. You can customize the design by modif
 
 ### Content
 Update the blog content by:
-1. Modifying the News API endpoint in `App.tsx`
+1. Modifying the DummyJSON endpoint in `App.tsx`
 2. Adjusting the data transformation in the `fetchPosts` function
 3. Customizing the `BlogPost` interface in `types/index.ts`
 
@@ -139,5 +139,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - Design inspiration from modern blog websites
 - [Heroicons](https://heroicons.com/) for icons
-- [News API](https://newsapi.org/) for content
+- [DummyJSON](https://dummyjson.com/) for mock content
 - [Tailwind CSS](https://tailwindcss.com/) for the utility-first CSS framework

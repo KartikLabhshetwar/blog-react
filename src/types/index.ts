@@ -1,21 +1,17 @@
-export interface NewsArticle {
-  source: {
-    id: string | null;
-    name: string;
-  };
-  author: string | null;
+export interface DummyPost {
+  id: number;
   title: string;
-  description: string;
-  url: string;
-  urlToImage: string;
-  publishedAt: string;
-  content: string;
+  body: string;
+  userId: number;
+  tags: string[];
+  reactions: number;
 }
 
-export interface NewsApiResponse {
-  status: string;
-  totalResults: number;
-  articles: NewsArticle[];
+export interface DummyResponse {
+  posts: DummyPost[];
+  total: number;
+  skip: number;
+  limit: number;
 }
 
 export interface BlogPost {

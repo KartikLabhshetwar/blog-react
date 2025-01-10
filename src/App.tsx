@@ -5,16 +5,13 @@ import LoadingSkeleton from './components/LoadingSkeleton';
 import Footer from './components/Footer';
 import { BlogPost } from './types';
 
-interface NewsArticle {
+interface DummyPost {
+  id: number;
   title: string;
-  description: string | null;
-  publishedAt: string;
-  urlToImage: string | null;
-  author: string | null;
-  source: {
-    name: string | null;
-  };
-  url: string;
+  body: string;
+  userId: number;
+  tags: string[];
+  reactions: number;
 }
 
 const App = () => {
@@ -25,33 +22,36 @@ const App = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await fetch(`https://newsapi.org/v2/top-headlines?country=us&category=technology&pageSize=12&apiKey=${import.meta.env.VITE_NEWS_API_KEY}`);
-        const data = await response.json();
-
-        if (data.status === 'error') {
-          throw new Error(data.message || 'Failed to fetch posts');
+        const response = await fetch('https://dummyjson.com/posts?limit=12');
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
         }
 
-        const transformedPosts = data.articles.map((article: NewsArticle, index: number) => ({
-          id: index + 1,
-          title: article.title,
-          description: article.description || 'No description available',
-          image: article.urlToImage || 'https://picsum.photos/800/600',
-          date: new Date(article.publishedAt).toLocaleDateString('en-US', {
+        const data = await response.json();
+
+        // Transform the data to match our BlogPost interface
+        const transformedPosts = data.posts.map((post: DummyPost) => ({
+          id: post.id,
+          title: post.title,
+          description: post.body.substring(0, 150) + '...',
+          // Generate random image for each post
+          image: `https://picsum.photos/seed/${post.id}/800/600`,
+          date: new Date(Date.now() - Math.random() * 10000000000).toLocaleDateString('en-US', {
             month: 'long',
             day: 'numeric',
             year: 'numeric'
           }),
-          author: article.author || 'Anonymous',
-          source: article.source.name || 'Unknown Source',
-          url: article.url
+          author: 'Author ' + post.userId,
+          source: post.tags[0] || 'Technology',
+          url: `#${post.id}` // Dummy URL
         }));
 
         setPosts(transformedPosts);
         setLoading(false);
-      } catch (error: unknown) {
-        const errorMessage = error instanceof Error ? error.message : 'Failed to load blog posts. Please try again later.';
-        setError(errorMessage);
+      } catch (error) {
+        console.error('Fetch error:', error);
+        setError(error instanceof Error ? error.message : 'Failed to load blog posts');
         setLoading(false);
       }
     };
@@ -64,7 +64,6 @@ const App = () => {
       <Navbar />
       
       <main className="max-w-7xl mx-auto px-6 lg:px-8 py-12">
-
         {loading ? (
           <LoadingSkeleton />
         ) : error ? (
