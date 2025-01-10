@@ -25,7 +25,7 @@ const App = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await fetch('https://newsapi.org/v2/top-headlines?country=us&category=technology&pageSize=12&apiKey=25c062cebb094ac4a09cac88e473bb31');
+        const response = await fetch(`https://newsapi.org/v2/top-headlines?country=us&category=technology&pageSize=12&apiKey=${import.meta.env.VITE_NEWS_API_KEY}`);
         const data = await response.json();
 
         if (data.status === 'error') {
